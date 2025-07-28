@@ -322,32 +322,6 @@ The setPriceFeed function lacks proper access control, allowing any user to chan
 
 Add proper access control mechanisms to critical oracle configuration functions and other sensitive interfaces. Functions such as setting the oracle address or updating key parameters should be restricted to authorized accounts.
 
-### CWE-284: Improper Access Control
-
-#### Description
-This refers to the lack of access control over critical functions or state variables related to oracle operations, which may lead to unauthorized access or modifications.
-
-#### Exploit Scenario:
-
-```solidity
-contract UnsafeOracleContract {
-    AggregatorV3Interface public priceFeed;
-    // ⚠️ oracle address not protected
-    function setPriceFeed(address _priceFeed) public {
-        priceFeed = AggregatorV3Interface(_priceFeed);
-    }
-    function getLatestPrice() public view returns (int256) {
-        (,int256 price,,,) = priceFeed.latestRoundData();
-        return price;
-    }
-}
-```
-The setPriceFeed function lacks proper access control, allowing any user to change the oracle address. Malicious users can redirect the oracle to a fake or manipulated data source
-
-#### Recommendation
-
-Add proper access control mechanisms to critical oracle configuration functions and other sensitive interfaces. Functions such as setting the oracle address or updating key parameters should be restricted to authorized accounts.
-
 ### CWE-693: Protection Mechanism Failure
 
 #### Description
